@@ -15,7 +15,7 @@ This board plugs into the CPU socket of any machine with a Motorola 6800, 6802, 
 2) click on PCB Assembly  
 3) Upload Gerber File "RPU V102 Gerber"
 4) Choose PCB Quantity
-5) Default settings are okay - click on PCB Assembly
+5) Default settings are okay - click on PCB Assembly (if you're asked for dimensions -- 74.788 x 121.444)
 6) Click Confirm, Click Next
 7) Add BOM file "RPU V102 BOM"
 8) Add CPL file "RPU V102 Pick and Place"
