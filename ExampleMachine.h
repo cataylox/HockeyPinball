@@ -82,52 +82,58 @@
 // Column × 8 + row = switch number.
 // ---------------------------------------------------------------------------
 
-// --- X0 (col 0, switches 0-7) ---
-// TODO: verify X0 bits 0-4 against Power Play schematic
-#define SW_LEFT_OUTLANE             0   // X0 bit 0
-#define SW_RIGHT_OUTLANE            1   // X0 bit 1
-#define SW_LEFT_RETURN_LANE         2   // X0 bit 2
-#define SW_RIGHT_RETURN_LANE        3   // X0 bit 3
-#define SW_SHOOTER_LANE             4   // X0 bit 4
+// --- STROBE0 (col 0, switches 0-7) ---
+#define SW_LR_RETURN_LANES          0
+#define SW_50_REBOUND               1
+#define SW_10_DROP_REBOUND          2
+#define SW_RIGHT_ROLLOVER_BOTTOM    3
+#define SW_LEFT_ROLLOVER_BOTTOM     4
 // Standard cabinet (confirmed):
-#define SW_CREDIT_RESET             5   // X0 bit 5 – Start / Credit-Reset button
-#define SW_TILT                     6   // X0 bit 6 – Plumb-bob tilt
+#define SW_CREDIT_RESET             5
+#define SW_TILT                     6
 #define SW_PLUMB_TILT               6
-#define SW_OUTHOLE                  7   // X0 bit 7
+#define SW_OUTHOLE                  7
 
-// --- X1 (col 1, switches 8-15) ---
+// --- STROBE1 (col 1, switches 8-15) ---
 // Standard cabinet (confirmed):
-#define SW_COIN_3                   8   // X1 bit 0 – right coin chute
-#define SW_COIN_1                   9   // X1 bit 1 – center coin chute
-#define SW_COIN_2                   10  // X1 bit 2 – left coin chute
-// TODO: verify X1 bits 3-6 against Power Play schematic
-#define SW_LEFT_ROLLOVER_BUTTON     11  // X1 bit 3
-#define SW_RIGHT_ROLLOVER_BUTTON    12  // X1 bit 4
-#define SW_SPINNER                  13  // X1 bit 5
-#define SW_SHOOTER_LANE_2           14  // X1 bit 6 (second shooter-lane switch, if present)
+#define SW_COIN_3                   8
+#define SW_COIN_1                   9
+#define SW_COIN_2                   10
 // Standard cabinet (confirmed):
-#define SW_SLAM                     15  // X1 bit 7 – slam tilt
+#define SW_SLAM                     15
 #define SW_PLAYFIELD_TILT           15
 
-// --- X2 (col 2, switches 16-23) – all drop targets (confirmed for Power Play) ---
-#define SW_DROP_LEFT_1              16  // X2 bit 0 – left bank, target 1 (top)
-#define SW_DROP_LEFT_2              17  // X2 bit 1
-#define SW_DROP_LEFT_3              18  // X2 bit 2
-#define SW_DROP_LEFT_4              19  // X2 bit 3 – left bank, target 4 (bottom)
-#define SW_DROP_RIGHT_1             20  // X2 bit 4 – right bank, target 1 (top)
-#define SW_DROP_RIGHT_2             21  // X2 bit 5
-#define SW_DROP_RIGHT_3             22  // X2 bit 6
-#define SW_DROP_RIGHT_4             23  // X2 bit 7 – right bank, target 4 (bottom)
+// --- STROBE2 (col 2, switches 16-23) – all drop targets (confirmed for Power Play) ---
+#define SW_DROP_RIGHT_D             16
+#define SW_DROP_RIGHT_C             17
+#define SW_DROP_RIGHT_B             18
+#define SW_DROP_RIGHT_A             19
+#define SW_DROP_LEFT_D              20
+#define SW_DROP_LEFT_C              21
+#define SW_DROP_LEFT_B              22
+#define SW_DROP_LEFT_A              23
 
-// --- X3 (col 3, switches 24-31) ---
-// TODO: verify X3 bits 0-6 against Power Play schematic
-#define SW_POP_BUMPER_LEFT          24  // X3 bit 0
-#define SW_POP_BUMPER_RIGHT         25  // X3 bit 1
-#define SW_POP_BUMPER_BOTTOM        26  // X3 bit 2
-#define SW_LEFT_SLING               27  // X3 bit 3
-#define SW_RIGHT_SLING              28  // X3 bit 4
+// --- STROBE3 (col 3, switches 24-31) ---
+#define SW_DOWN_POST_ROLLOVER       24
+#define SW_CENTER_ROLLOVER          25
+#define SW_RIGHT_OUTLANE            26
+#define SW_LEFT_OUTLANE             27
+#define SW_RIGHT_ROLLOVER_TOP       28
+#define SW_LEFT_ROLLOVER_TOP        29
+#define SW_SAUCER                   31
+
+// --- STROBE4 (col 4, switches 32-39) ---
+#define SW_TOP_ROLLOVER_AND_CENTER  32
+#define SW_RIGHT_ROLLOVER_CENTER    33
+#define SW_LEFT_ROLLOVER_CENTER     34
+#define SW_RIGHT_SLING              35
+#define SW_LEFT_SLING               36
+#define SW_POP_BUMPER_BOTTOM        37
+#define SW_POP_BUMPER_RIGHT         38
+#define SW_POP_BUMPER_LEFT          39
+
 // Confirmed for Power Play:
-#define SW_SAUCER                   31  // X3 bit 7
+
 
 // --- X4 (col 4, switches 32-39) – TODO: verify all against schematic ---
 // (assign as additional playfield switches are discovered)
@@ -137,27 +143,25 @@
 // ---------------------------------------------------------------------------
 
 // Momentary solenoids (0-15):
-#define SOL_POST_DOWN               0   // Center post – retract (ball drains through)
-#define SOL_CHIME_10                1
-#define SOL_CHIME_100               2
-#define SOL_CHIME_1000              3
-#define SOL_CHIME_10000             4
-#define SOL_KNOCKER                 5
-#define SOL_OUTHOLE                 6
-#define SOL_SAUCER                  7
+#define SOL_OUTHOLE                 0
+#define SOL_KNOCKER                 1
+#define SOL_SAUCER                  2
+#define SOL_POST_DOWN               3   // Center post – retract (ball drains through)
+#define SOL_CHIME_10                4
+#define SOL_CHIME_100               5
+#define SOL_CHIME_1000              6
+#define SOL_CHIME_EXTRA             7
 #define SOL_POP_BUMPER_LEFT         8
 #define SOL_POP_BUMPER_RIGHT        9
 #define SOL_POP_BUMPER_BOTTOM       10
-#define SOL_LEFT_SLING              11
-#define SOL_DROP_TARGET_RESET_LEFT  12  // resets SW_DROP_LEFT_1 – SW_DROP_LEFT_4
-#define SOL_RIGHT_SLING             13
-#define SOL_DROP_TARGET_RESET_RIGHT 14  // resets SW_DROP_RIGHT_1 – SW_DROP_RIGHT_4
-// SOL 15 = unused / all-off
-
+#define SOL_DROP_TARGET_RESET_LEFT  11  // resets SW_DROP_LEFT_1 – SW_DROP_LEFT_4
+#define SOL_DROP_TARGET_RESET_RIGHT 12  // resets SW_DROP_RIGHT_1 – SW_DROP_RIGHT_4
+#define SOL_LEFT_SLING              13
+#define SOL_RIGHT_SLING             14
 // Continuous solenoids (16-18):
-#define SOLCONT_POST_UP             16  // Center post – extend (blocks drain)
-#define SOLCONT_COIN_LOCKOUT        17
-#define SOLCONT_FLIPPER_ENABLE      18
+#define SOLCONT_POST_UP             15  // Center post – extend (blocks drain)
+#define SOLCONT_COIN_LOCKOUT        16
+#define SOLCONT_FLIPPER_ENABLE      17
 
 // ---------------------------------------------------------------------------
 // SOFTWARE-TRIGGERED SOLENOIDS (Bally -17 architecture)
