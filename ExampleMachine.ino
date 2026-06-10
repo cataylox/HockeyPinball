@@ -16,7 +16,7 @@
 #include "LampAnimations.h"
 #include <EEPROM.h>
 
-#define GAME_MAJOR_VERSION  2023
+#define GAME_MAJOR_VERSION  2026
 #define GAME_MINOR_VERSION  1
 #define DEBUG_MESSAGES  1
 
@@ -245,7 +245,9 @@ unsigned long PlayfieldMultiplierExpiration;
 unsigned long BonusChanged;
 unsigned long BonusXAnimationStart;
 
-DropTargetBank DropTargets(3, 1, DROP_TARGET_TYPE_BLY_1, 50);
+// Power Play has two independent 4-target banks, each with its own reset solenoid
+DropTargetBank DropTargetsLeft(4, 1, DROP_TARGET_TYPE_BLY_1, 50);
+DropTargetBank DropTargetsRight(4, 1, DROP_TARGET_TYPE_BLY_1, 50);
 
 
 /******************************************************
@@ -409,11 +411,18 @@ void setup() {
   CurrentAchievements[2] = 0;
   CurrentAchievements[3] = 0;
 
-  // Initialize any drop target variables here
-  DropTargets.DefineSwitch(0, SW_DROP_1);
-  DropTargets.DefineSwitch(1, SW_DROP_2);
-  DropTargets.DefineSwitch(2, SW_DROP_3);
-  DropTargets.DefineResetSolenoid(0, SOL_DROP_TARGET_RESET);
+  // Initialize drop target banks
+  DropTargetsLeft.DefineSwitch(0, SW_DROP_LEFT_1);
+  DropTargetsLeft.DefineSwitch(1, SW_DROP_LEFT_2);
+  DropTargetsLeft.DefineSwitch(2, SW_DROP_LEFT_3);
+  DropTargetsLeft.DefineSwitch(3, SW_DROP_LEFT_4);
+  DropTargetsLeft.DefineResetSolenoid(0, SOL_DROP_TARGET_RESET_LEFT);
+
+  DropTargetsRight.DefineSwitch(0, SW_DROP_RIGHT_1);
+  DropTargetsRight.DefineSwitch(1, SW_DROP_RIGHT_2);
+  DropTargetsRight.DefineSwitch(2, SW_DROP_RIGHT_3);
+  DropTargetsRight.DefineSwitch(3, SW_DROP_RIGHT_4);
+  DropTargetsRight.DefineResetSolenoid(0, SOL_DROP_TARGET_RESET_RIGHT);
 
   Audio.SetMusicDuckingGain(12);
   Audio.QueueSound(SOUND_EFFECT_MACHINE_START, AUDIO_PLAY_TYPE_WAV_TRIGGER, CurrentTime+1200);
@@ -1848,8 +1857,9 @@ int InitNewBall(bool curStateChanged) {
 //      SkillShotTarget = CurrentTime % 3;      
     }
 
-    // Reset Drop Targets
-    DropTargets.ResetDropTargets(CurrentTime + 100, true);
+    // Reset both drop target banks
+    DropTargetsLeft.ResetDropTargets(CurrentTime + 100, true);
+    DropTargetsRight.ResetDropTargets(CurrentTime + 100, true);
 
     RPU_PushToTimedSolenoidStack(SOL_OUTHOLE, 16, CurrentTime + 1000);
     NumberOfBallsInPlay = 1;
@@ -1902,7 +1912,8 @@ boolean AddABall(boolean ballLocked = false, boolean ballSave = true) {
 */
 
 void UpdateDropTargets() {
-  DropTargets.Update(CurrentTime);
+  DropTargetsLeft.Update(CurrentTime);
+  DropTargetsRight.Update(CurrentTime);
 }
 
 byte GameModeStage;
@@ -2393,22 +2404,18 @@ int HandleSystemSwitches(int curState, byte switchHit) {
 
 
 void HandleDropTarget(byte switchHit) {
+  boolean isLeft = (switchHit >= SW_DROP_LEFT_1 && switchHit <= SW_DROP_LEFT_4);
+  DropTargetBank &bank = isLeft ? DropTargetsLeft : DropTargetsRight;
 
-  byte result;
-  unsigned long numTargetsDown = 0;
-  result = DropTargets.HandleDropTargetHit(switchHit);
-  numTargetsDown = (unsigned long)CountBits(result);
+  byte result = bank.HandleDropTargetHit(switchHit);
+  CurrentScores[CurrentPlayer] += PlayfieldMultiplier * (unsigned long)CountBits(result) * 100;
 
-  CurrentScores[CurrentPlayer] += PlayfieldMultiplier * numTargetsDown * 100;
-
-  boolean cleared = DropTargets.CheckIfBankCleared();
-  if (cleared) {
-    DropTargets.ResetDropTargets(CurrentTime + 500, true);
+  if (bank.CheckIfBankCleared()) {
+    bank.ResetDropTargets(CurrentTime + 500, true);
 //    PlaySoundEffect(SOUND_EFFECT_DROP_TARGET_COMPLETE);
   } else {
-//    PlaySoundEffect(SOUND_EFFECT_DROP_TARGET_HIT);    
+//    PlaySoundEffect(SOUND_EFFECT_DROP_TARGET_HIT);
   }
-  
 }
 
 
@@ -2425,9 +2432,14 @@ void HandleGamePlaySwitches(byte switchHit) {
       if (BallFirstSwitchHitTime == 0) BallFirstSwitchHitTime = CurrentTime;
       break;
 
-    case SW_DROP_1:
-    case SW_DROP_2:
-    case SW_DROP_3:
+    case SW_DROP_LEFT_1:
+    case SW_DROP_LEFT_2:
+    case SW_DROP_LEFT_3:
+    case SW_DROP_LEFT_4:
+    case SW_DROP_RIGHT_1:
+    case SW_DROP_RIGHT_2:
+    case SW_DROP_RIGHT_3:
+    case SW_DROP_RIGHT_4:
       HandleDropTarget(switchHit);
       LastSwitchHitTime = CurrentTime;
       if (BallFirstSwitchHitTime == 0) BallFirstSwitchHitTime = CurrentTime;
