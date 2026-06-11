@@ -23,7 +23,7 @@
 #include <Arduino.h>
 #include <EEPROM.h>
 #define RPU_CPP_FILE
-#include "RPU_config.h"
+#include "RPU_Config.h"
 #include "RPU.h"
 
 #define DEBUG_MESSAGES  0

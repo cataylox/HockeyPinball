@@ -412,16 +412,16 @@ void setup() {
   CurrentAchievements[3] = 0;
 
   // Initialize drop target banks
-  DropTargetsLeft.DefineSwitch(0, SW_DROP_LEFT_1);
-  DropTargetsLeft.DefineSwitch(1, SW_DROP_LEFT_2);
-  DropTargetsLeft.DefineSwitch(2, SW_DROP_LEFT_3);
-  DropTargetsLeft.DefineSwitch(3, SW_DROP_LEFT_4);
+  DropTargetsLeft.DefineSwitch(0, SW_DROP_LEFT_A);
+  DropTargetsLeft.DefineSwitch(1, SW_DROP_LEFT_B);
+  DropTargetsLeft.DefineSwitch(2, SW_DROP_LEFT_C);
+  DropTargetsLeft.DefineSwitch(3, SW_DROP_LEFT_D);
   DropTargetsLeft.DefineResetSolenoid(0, SOL_DROP_TARGET_RESET_LEFT);
 
-  DropTargetsRight.DefineSwitch(0, SW_DROP_RIGHT_1);
-  DropTargetsRight.DefineSwitch(1, SW_DROP_RIGHT_2);
-  DropTargetsRight.DefineSwitch(2, SW_DROP_RIGHT_3);
-  DropTargetsRight.DefineSwitch(3, SW_DROP_RIGHT_4);
+  DropTargetsRight.DefineSwitch(0, SW_DROP_RIGHT_A);
+  DropTargetsRight.DefineSwitch(1, SW_DROP_RIGHT_B);
+  DropTargetsRight.DefineSwitch(2, SW_DROP_RIGHT_C);
+  DropTargetsRight.DefineSwitch(3, SW_DROP_RIGHT_D);
   DropTargetsRight.DefineResetSolenoid(0, SOL_DROP_TARGET_RESET_RIGHT);
 
   Audio.SetMusicDuckingGain(12);
@@ -2404,7 +2404,7 @@ int HandleSystemSwitches(int curState, byte switchHit) {
 
 
 void HandleDropTarget(byte switchHit) {
-  boolean isLeft = (switchHit >= SW_DROP_LEFT_1 && switchHit <= SW_DROP_LEFT_4);
+  boolean isLeft = (switchHit >= SW_DROP_LEFT_A && switchHit <= SW_DROP_LEFT_D);
   DropTargetBank &bank = isLeft ? DropTargetsLeft : DropTargetsRight;
 
   byte result = bank.HandleDropTargetHit(switchHit);
@@ -2432,22 +2432,15 @@ void HandleGamePlaySwitches(byte switchHit) {
       if (BallFirstSwitchHitTime == 0) BallFirstSwitchHitTime = CurrentTime;
       break;
 
-    case SW_DROP_LEFT_1:
-    case SW_DROP_LEFT_2:
-    case SW_DROP_LEFT_3:
-    case SW_DROP_LEFT_4:
-    case SW_DROP_RIGHT_1:
-    case SW_DROP_RIGHT_2:
-    case SW_DROP_RIGHT_3:
-    case SW_DROP_RIGHT_4:
+    case SW_DROP_LEFT_A:
+    case SW_DROP_LEFT_B:
+    case SW_DROP_LEFT_C:
+    case SW_DROP_LEFT_D:
+    case SW_DROP_RIGHT_A:
+    case SW_DROP_RIGHT_B:
+    case SW_DROP_RIGHT_C:
+    case SW_DROP_RIGHT_D:
       HandleDropTarget(switchHit);
-      LastSwitchHitTime = CurrentTime;
-      if (BallFirstSwitchHitTime == 0) BallFirstSwitchHitTime = CurrentTime;
-      break;
-
-    case SW_SPINNER:
-      CurrentScores[CurrentPlayer] += 100 * PlayfieldMultiplier;
-//      PlaySoundEffect(SOUND_EFFECT_SPINNER);
       LastSwitchHitTime = CurrentTime;
       if (BallFirstSwitchHitTime == 0) BallFirstSwitchHitTime = CurrentTime;
       break;
