@@ -9,16 +9,16 @@
 // LAMPS
 // ---------------------------------------------------------------------------
 
-#define LAMP_BONUS_1K                 0	// Q14, J1-18
-#define LAMP_BONUS_2K                 1	// Q29, J1-1
-#define LAMP_BONUS_3K                 2	// Q36, J3-26
-#define LAMP_BONUS_4K                 3	// Q57, J3-1
-#define LAMP_BONUS_5K                 4	// Q12, J1-19
-#define LAMP_BONUS_6K                 5	// Q27, J1-9
-#define LAMP_BOMNUS_7K                6	// Q38, J3-25
-#define LAMP_BONUS_8K                 7	// Q50, J3-12
-#define LAMP_BONUS_9K                 8	// Q13, J1-17
-#define LAMP_BONUS_10K                9	// Q28, J1-8
+#define LAMP_BONUS_1K                 0		// Q14, J1-18
+#define LAMP_BONUS_2K                 1		// Q29, J1-1
+#define LAMP_BONUS_3K                 2		// Q36, J3-26
+#define LAMP_BONUS_4K                 3		// Q57, J3-1
+#define LAMP_BONUS_5K                 4		// Q12, J1-19
+#define LAMP_BONUS_6K                 5		// Q27, J1-9
+#define LAMP_BONUS_7K                 6		// Q38, J3-25
+#define LAMP_BONUS_8K                 7		// Q50, J3-12
+#define LAMP_BONUS_9K                 8		// Q13, J1-17
+#define LAMP_BONUS_10K                9		// Q28, J1-8
 #define LAMP_BONUS_20K                10	// Q44, J3-19
 #define LAMP_RT_ALLEY                 12	// Q8, J1-23
 #define LAMP_RT_ALLEY_X2              13	// Q35, J1-3
