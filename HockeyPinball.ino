@@ -10,7 +10,7 @@
 #include "RPU_Config.h"
 #include "RPU.h"
 #include "DropTargets.h"
-#include "ExampleMachine.h"
+#include "HockeyPinball.h"
 #include "SelfTestAndAudit.h"
 #include "AudioHandler.h"
 #include "LampAnimations.h"
