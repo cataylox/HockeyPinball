@@ -116,12 +116,6 @@
 #define SW_POP_BUMPER_RIGHT         38
 #define SW_POP_BUMPER_LEFT          39
 
-// Confirmed for Power Play:
-
-
-// --- X4 (col 4, switches 32-39) – TODO: verify all against schematic ---
-// (assign as additional playfield switches are discovered)
-
 // ---------------------------------------------------------------------------
 // SOLENOIDS  (all confirmed from MAME init_pwerplay)
 // ---------------------------------------------------------------------------

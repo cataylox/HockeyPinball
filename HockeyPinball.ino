@@ -2431,7 +2431,23 @@ void HandleGamePlaySwitches(byte switchHit) {
       LastSwitchHitTime = CurrentTime;
       if (BallFirstSwitchHitTime == 0) BallFirstSwitchHitTime = CurrentTime;
       break;
-
+    case SW_50_REBOUND:
+      // TODO score 40 and fall-through
+    case SW_10_DROP_REBOUND:
+      // TODO SCORE 10
+      break;
+    case SW_LR_RETURN_LANES:
+       // TODO score 300 then fall through    
+    case SW_DOWN_POST_ROLLOVER:
+      RPU_PushToSolenoidStack(SOL_POST_DOWN, 16, true);
+      break;
+    case SW_TOP_ROLLOVER_AND_CENTER:
+      // TODO Advance bonus
+      RPU_SetContinuousSolenoidBit(true, SOLCONT_POST_UP);
+      break;
+    case SW_CENTER_ROLLOVER:
+      // advance bonus plus 1000 points
+      break;
     case SW_DROP_LEFT_A:
     case SW_DROP_LEFT_B:
     case SW_DROP_LEFT_C:
@@ -2444,7 +2460,15 @@ void HandleGamePlaySwitches(byte switchHit) {
       LastSwitchHitTime = CurrentTime;
       if (BallFirstSwitchHitTime == 0) BallFirstSwitchHitTime = CurrentTime;
       break;
-
+    case SW_RIGHT_ROLLOVER_TOP:
+      // Advance bonus when lit
+    case SW_RIGHT_ROLLOVER_CENTER:
+    case SW_RIGHT_ROLLOVER_BOTTOM:
+      break;
+    case SW_LEFT_ROLLOVER_TOP:
+    case SW_LEFT_ROLLOVER_CENTER:
+    case SW_LEFT_ROLLOVER_BOTTOM:
+      break;
     case SW_SAUCER:
       CurrentScores[CurrentPlayer] += PlayfieldMultiplier * 1000;
 //      PlaySoundEffect(SOUND_EFFECT_SAUCER);
@@ -2452,8 +2476,11 @@ void HandleGamePlaySwitches(byte switchHit) {
       LastSwitchHitTime = CurrentTime;
       if (BallFirstSwitchHitTime == 0) BallFirstSwitchHitTime = CurrentTime;
       break;
-
-  }
+    case SW_RIGHT_OUTLANE:
+    case SW_LEFT_OUTLANE:
+      // TODO score 1000, plus credit if lit
+      break;
+}
 
 }
 
