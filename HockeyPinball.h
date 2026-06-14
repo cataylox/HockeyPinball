@@ -121,25 +121,26 @@
 // ---------------------------------------------------------------------------
 
 // Momentary solenoids (0-15):
-#define SOL_OUTHOLE                 0
-#define SOL_KNOCKER                 1
-#define SOL_SAUCER                  2
-#define SOL_POST_DOWN               3   // Center post – retract (ball drains through)
-#define SOL_CHIME_10                4
-#define SOL_CHIME_100               5
-#define SOL_CHIME_1000              6
-#define SOL_CHIME_EXTRA             7
+#define SOL_POST_DOWN               0   // Center post – retract (ball drains through)
+#define SOL_CHIME_10                1
+#define SOL_CHIME_100               2
+#define SOL_CHIME_1000              3
+#define SOL_CHIME_EXTRA             4
+#define SOL_KNOCKER                 5
+#define SOL_OUTHOLE                 6
+#define SOL_SAUCER                  7
 #define SOL_POP_BUMPER_LEFT         8
 #define SOL_POP_BUMPER_RIGHT        9
 #define SOL_POP_BUMPER_BOTTOM       10
-#define SOL_DROP_TARGET_RESET_LEFT  11  // resets SW_DROP_LEFT_1 – SW_DROP_LEFT_4
-#define SOL_DROP_TARGET_RESET_RIGHT 12  // resets SW_DROP_RIGHT_1 – SW_DROP_RIGHT_4
-#define SOL_LEFT_SLING              13
-#define SOL_RIGHT_SLING             14
+#define SOL_LEFT_SLING              11
+#define SOL_DROP_TARGET_RESET_LEFT  12  // resets SW_DROP_LEFT_1 – SW_DROP_LEFT_4
+#define SOL_RIGHT_SLING             13
+#define SOL_DROP_TARGET_RESET_RIGHT 14  // resets SW_DROP_RIGHT_1 – SW_DROP_RIGHT_4
 // Continuous solenoids (16-18):
-#define SOLCONT_POST_UP             15  // Center post – extend (blocks drain)
-#define SOLCONT_COIN_LOCKOUT        16
-#define SOLCONT_FLIPPER_ENABLE      17
+#define SOLCONT_FLIPPER_ENABLE      16
+#define SOLCONT_POST_UP             17  // Center post – extend (blocks drain)
+#define SOLCONT_COIN_LOCKOUT        19
+
 
 // ---------------------------------------------------------------------------
 // SOFTWARE-TRIGGERED SOLENOIDS (Bally -17 architecture)
